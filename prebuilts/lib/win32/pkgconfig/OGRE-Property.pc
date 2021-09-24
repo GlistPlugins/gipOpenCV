@@ -1,0 +1,11 @@
+prefix=/mingw64
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: OGRE-Property
+Description: General purpose property component for OGRE
+Version: 1.12.6
+Requires: OGRE = 1.12.6
+Libs: -L${libdir} -lOgreProperty
+Cflags: -I${includedir}/OGRE/Property -pthread

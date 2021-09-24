@@ -1,0 +1,9 @@
+prefix=/mingw64
+libdir=${prefix}/lib
+includedir=${prefix}/include
+Name: metis
+URL: http://glaros.dtc.umn.edu/gkhome/views/metis
+Version: 5.1.0
+Description: Serial Graph Partitioning and Fill-reducing Matrix Ordering (mingw-w64)
+Cflags: -I${includedir}
+Libs: -L${libdir} -lmetis

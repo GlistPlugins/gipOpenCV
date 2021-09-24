@@ -1,0 +1,12 @@
+prefix=/mingw64
+libdir=${prefix}/lib
+includedir=${prefix}/include
+package=zziplib
+suffix=.exe
+
+Name: zziplib
+Description: ZZipLib - libZ-based ZIP-access Library with an Easy-to-Use API
+Version: 0.13.72
+Requires: zlib
+Libs: -L${libdir} -lzzip
+Cflags: -I${includedir}

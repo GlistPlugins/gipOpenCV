@@ -1,0 +1,10 @@
+prefix=/mingw64
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: zzipwrap
+Version: 0.13.72
+Description: Callback Wrappers for ZZipLib
+Requires: zziplib
+Libs: -L${libdir} -lzzipwrap
+Cflags: -I${includedir}

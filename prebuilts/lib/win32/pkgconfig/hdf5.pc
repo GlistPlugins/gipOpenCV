@@ -1,0 +1,14 @@
+prefix=/mingw64
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: hdf5
+Description: HDF5 (Hierarchical Data Format 5) Software Library
+Version: 1.12.0
+
+Cflags: -I${includedir}
+Libs: -L${libdir}  -lhdf5
+Requires: 
+Libs.private:  -lm -lws2_32 -lwsock32 -l/mingw64/lib/libz.dll.a -l/mingw64/lib/libszip.dll.a  -lhdf5
+Requires.private: 
