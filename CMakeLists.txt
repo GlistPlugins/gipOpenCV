@@ -9,86 +9,28 @@ set(PLUGIN_DIR ${PLUGINS_DIR}/${pluginname})
 set(PREBUILT_DIR ${PLUGIN_DIR}/prebuilts)
 
 
+
 ##### PLUGIN SOURCES #####
 list(APPEND PLUGIN_SRCS
 			${PLUGIN_DIR}/src/gipOpenCV.cpp
 )
 
-
 ##### PLUGIN HEADERS #####
 list(APPEND PLUGIN_INCLUDES
 			${PLUGIN_DIR}/src
 			${PREBUILT_DIR}/include
-			${PREBUILT_DIR}/include/opencv4
-			${PREBUILT_DIR}/include/opencv4/opencv2
-			${PREBUILT_DIR}/include/boost
-			${PREBUILT_DIR}/include/brotli
-			${PREBUILT_DIR}/include/cairo
-			${PREBUILT_DIR}/include/ceres
-			${PREBUILT_DIR}/include/cppunit
-			${PREBUILT_DIR}/include/curl
-			${PREBUILT_DIR}/include/datrie
-			${PREBUILT_DIR}/include/editline
-			${PREBUILT_DIR}/include/eigen3
-			${PREBUILT_DIR}/include/fontconfig
-			${PREBUILT_DIR}/include/freetype2
-			${PREBUILT_DIR}/include/fribidi
-			${PREBUILT_DIR}/include/gflags
-			${PREBUILT_DIR}/include/gio-win32-2.0
-			${PREBUILT_DIR}/include/GL
-			${PREBUILT_DIR}/include/glib-2.0
-			${PREBUILT_DIR}/include/glog
-			${PREBUILT_DIR}/include/google
-			${PREBUILT_DIR}/include/graphite2
-			${PREBUILT_DIR}/include/harfbuzz
-			${PREBUILT_DIR}/include/jasper
-			${PREBUILT_DIR}/include/jemalloc
-			${PREBUILT_DIR}/include/jxrlib
-			${PREBUILT_DIR}/include/leptonica
-			${PREBUILT_DIR}/include/libpng16
-			${PREBUILT_DIR}/include/libraw
-			${PREBUILT_DIR}/include/libxml2
-			${PREBUILT_DIR}/include/lzma
-			${PREBUILT_DIR}/include/lzo
-			${PREBUILT_DIR}/include/metalink
-			${PREBUILT_DIR}/include/ncurses
-			${PREBUILT_DIR}/include/ncursew
-			${PREBUILT_DIR}/include/nettle
-			${PREBUILT_DIR}/include/nghttp2
-			${PREBUILT_DIR}/include/OGRE
-			${PREBUILT_DIR}/include/OpenBLAS
-			${PREBUILT_DIR}/include/OpenEXR
-			${PREBUILT_DIR}/include/openjpeg-2.3
-			${PREBUILT_DIR}/include/openssl
-			${PREBUILT_DIR}/include/p11-kit-1
-			${PREBUILT_DIR}/include/pango-1.0
-			${PREBUILT_DIR}/include/pixman-1
-			${PREBUILT_DIR}/include/python3.9
-			${PREBUILT_DIR}/include/readline
-			${PREBUILT_DIR}/include/SDL2
-			${PREBUILT_DIR}/include/shared
-			${PREBUILT_DIR}/include/static
-			${PREBUILT_DIR}/include/tbb
-			${PREBUILT_DIR}/include/tcl8.6
-			${PREBUILT_DIR}/include/tesseract
-			${PREBUILT_DIR}/include/thai
-			${PREBUILT_DIR}/include/tk8.6
-			${PREBUILT_DIR}/include/tre
-			${PREBUILT_DIR}/include/unicode
-			${PREBUILT_DIR}/include/unistring
-			${PREBUILT_DIR}/include/vk_video
-			${PREBUILT_DIR}/include/vulkan
-			${PREBUILT_DIR}/include/webp
-			${PREBUILT_DIR}/include/X11
-			${PREBUILT_DIR}/include/zzip
+#			${OpenCV_INCLUDE_DIRS}
 )
 
+#set(OpenCV_DIR ${PREBUILT_DIR}/lib/win32)
+#find_package(OpenCV REQUIRED)
 
 ##### PLUGIN DEPENDENCY LOCATIONS (IF ANY) #####
 if(WIN32)
 	list(APPEND PLUGIN_LINKDIRS
 				${PREBUILT_DIR}/lib/win32
-				${PREBUILT_DIR}/bin
+				${PREBUILT_DIR}/bin			
+	#			${OpenCV_LIBS}
 	)
 	
 	#set(PLUGIN_LIBDIRS ${PREBUILT_DIR}/lib/win32)
@@ -105,13 +47,28 @@ endif(WIN32)
 ##### PLUGIN DEPENDENCY LINKING (IF ANY) #####					
 if(WIN32)
 	list(APPEND PLUGIN_LINKLIBS
-				opencv_core
+			opencv_calib3d455.dll
+			opencv_core455.dll
+			opencv_dnn455.dll
+			opencv_features2d455.dll
+			opencv_flann455.dll
+			opencv_gapi455.dll
+			opencv_highgui455.dll
+			opencv_imgcodecs455.dll
+			opencv_imgproc455.dll
+			opencv_ml455.dll
+			opencv_objdetect455.dll
+			opencv_photo455.dll
+			opencv_stitching455.dll
+			opencv_video455.dll
+			opencv_videoio455.dll
 	)
 elseif(LINUX)
 	list(APPEND PLUGIN_LINKLIBS
-				opencv_core
+				#Lib names
 	)
 elseif(APPLE)
 	list(APPEND PLUGIN_LINKLIBS
+				#Lib names
 	)
 endif(WIN32)

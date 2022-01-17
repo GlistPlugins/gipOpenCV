@@ -1,38 +1,28 @@
 /*
  * gipOpenCV.h
  *
- *  Created on: 13 Aðu 2021
- *      Author: berka
+ *  Created on: Jan 10, 2022
+ *      Author: Onur Demir
  */
 
 #ifndef SRC_GIPOPENCV_H_
 #define SRC_GIPOPENCV_H_
 
-#include "opencv2/opencv.hpp"
-
 #include "gBasePlugin.h"
-#include "gImage.h"
+#include "opencv2/opencv.hpp"
+#include "opencv2/highgui.hpp"
 
+using namespace cv;
 
-class gipOpenCV : public gBasePlugin{
-
+class gipOpenCV : public gBasePlugin {
 public:
 	gipOpenCV();
 	virtual ~gipOpenCV();
 
-	void loadOpenCVImage(std::string fullpath);
-	void contrastStretch();
-	void convertToRange();
-	void erode();
-	void dilate();
-	void blur();
-	void blurGaussian();
-	void invert();
-
+	void setup();
+	void install();
 private:
-	std::string fullpath;
-	cv::Mat sourceimage, destinationimage, binaryimage, invertedbinaryimage, grayscaleimage;
-	gImage convertedimage;
+	//Mat mat;
 };
 
 #endif /* SRC_GIPOPENCV_H_ */
