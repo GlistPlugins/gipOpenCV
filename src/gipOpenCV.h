@@ -9,8 +9,10 @@
 #define SRC_GIPOPENCV_H_
 
 #include "gBasePlugin.h"
+
+#include "gImage.h"
 #include "opencv2/opencv.hpp"
-#include "opencv2/highgui.hpp"
+
 
 using namespace cv;
 
@@ -19,10 +21,11 @@ public:
 	gipOpenCV();
 	virtual ~gipOpenCV();
 
-	void setup();
-	void install();
+	gImage makeGray(gImage img);
+
+	void setMatData(gImage img);
 private:
-	//Mat mat;
+	Mat mat;
 };
 
 #endif /* SRC_GIPOPENCV_H_ */
