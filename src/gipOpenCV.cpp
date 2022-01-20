@@ -15,17 +15,15 @@ gipOpenCV::~gipOpenCV() {
 
 }
 
-void gipOpenCV::setup() {
-
+gImage gipOpenCV::makeGray(gImage img) {
+	setMatData(img);
+	gImage img2;
+	cvtColor(mat, mat, COLOR_BGR2GRAY);
+	cvtColor(mat, mat, COLOR_GRAY2RGBA);
+	img2.setImageData(mat.data, mat.cols, mat.rows, 4);
+	return img2;
 }
 
-void gipOpenCV::install() {
-	gLogi("gipOpenCV");
-	Mat mat = imread(gGetImagesDir() + "glistengine_logo.png", 0);
-	/*if(mat*.empty()){
-		std::cout << "Resim Yuklenemedi...";
-		return;
-	}
-	namedWindow("deneme");
-	imshow("deneme", *mat);*/
+void gipOpenCV::setMatData(gImage img) {
+	mat = imread(gGetImagesDir() + "glistengine_logo.png", IMREAD_UNCHANGED);
 }

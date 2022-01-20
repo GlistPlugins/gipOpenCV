@@ -19,18 +19,14 @@ list(APPEND PLUGIN_SRCS
 list(APPEND PLUGIN_INCLUDES
 			${PLUGIN_DIR}/src
 			${PREBUILT_DIR}/include
-#			${OpenCV_INCLUDE_DIRS}
 )
 
-#set(OpenCV_DIR ${PREBUILT_DIR}/lib/win32)
-#find_package(OpenCV REQUIRED)
 
 ##### PLUGIN DEPENDENCY LOCATIONS (IF ANY) #####
 if(WIN32)
 	list(APPEND PLUGIN_LINKDIRS
 				${PREBUILT_DIR}/lib/win32
 				${PREBUILT_DIR}/bin			
-	#			${OpenCV_LIBS}
 	)
 	
 	#set(PLUGIN_LIBDIRS ${PREBUILT_DIR}/lib/win32)
@@ -47,21 +43,21 @@ endif(WIN32)
 ##### PLUGIN DEPENDENCY LINKING (IF ANY) #####					
 if(WIN32)
 	list(APPEND PLUGIN_LINKLIBS
-			opencv_calib3d455.dll
-			opencv_core455.dll
-			opencv_dnn455.dll
-			opencv_features2d455.dll
-			opencv_flann455.dll
-			opencv_gapi455.dll
-			opencv_highgui455.dll
-			opencv_imgcodecs455.dll
-			opencv_imgproc455.dll
-			opencv_ml455.dll
-			opencv_objdetect455.dll
-			opencv_photo455.dll
-			opencv_stitching455.dll
-			opencv_video455.dll
-			opencv_videoio455.dll
+		opencv_calib3d455
+		opencv_core455
+		opencv_dnn455
+		opencv_features2d455
+		opencv_flann455
+		opencv_gapi455
+		opencv_highgui455
+		opencv_imgcodecs455
+		opencv_imgproc455
+		opencv_ml455
+		opencv_objdetect455
+		opencv_photo455
+		opencv_stitching455
+		opencv_video455
+		opencv_videoio455
 	)
 elseif(LINUX)
 	list(APPEND PLUGIN_LINKLIBS
