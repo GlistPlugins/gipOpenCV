@@ -16,66 +16,76 @@ gipOpenCV::~gipOpenCV() {
 
 void gipOpenCV::makeGray(gImage* image) {
 	setMatData(image);
-	cvtColor(mat, mat, COLOR_BGRA2GRAY);
-	cvtColor(mat, mat, COLOR_GRAY2RGBA);
+	cv::cvtColor(mat, mat, cv::COLOR_BGRA2GRAY);
+	cv::cvtColor(mat, mat, cv::COLOR_GRAY2RGBA);
 	image->setImageData(mat.data, mat.cols, mat.rows, 4);
 }
 
 void gipOpenCV::makeCanny(gImage* image, float threshold1, float threshold2) {
 	setMatData(image);
-	cvtColor(mat, mat, COLOR_BGRA2GRAY);
+	cv::cvtColor(mat, mat, cv::COLOR_BGRA2GRAY);
 	Canny(mat, mat, threshold1, threshold2);
-	cvtColor(mat, mat, COLOR_BGRA2RGBA);
+	cv::cvtColor(mat, mat, cv::COLOR_BGRA2RGBA);
 	image->setImageData(mat.data, mat.cols, mat.rows, 4);
 }
 
-std::vector<Rect> gipOpenCV::objectDetection(gImage* image, std::string xmlFilePath, float scaleFactor, int minNeighbors) {
+std::vector<cv::Rect> gipOpenCV::objectDetection(gImage* image, std::string xmlFilePath, float scaleFactor, int minNeighbors) {
 	setMatData(image);
-	CascadeClassifier cascade;
+	cv::CascadeClassifier cascade;
 	cascade.load(xmlFilePath);
 
 	if(cascade.empty()) {
 		gLogi("Xml file not found");
 	}
 
-	std::vector<Rect> objects;
+	std::vector<cv::Rect> objects;
 	cascade.detectMultiScale(mat, objects, scaleFactor, minNeighbors);
 	return objects;
 }
 
-void gipOpenCV::objectsDraw(std::vector<Rect> objects,gImage* image, std::string xmlFilePath, Scalar color, int thickness, float scaleFactor, int minNeighbors) {
-	for(int i = 0; i < objects.size(); i++) {
-		gLogi("GameCanvas") << "i: " << gToStr(i);
-		rectangle(mat, objects[i].tl(), objects[i].br(), color, thickness);
-	}
-	cvtColor(mat, mat, COLOR_BGRA2RGBA);
-	image->setImageData(mat.data, mat.cols, mat.rows, 4);
+std::vector<cv::Rect> gipOpenCV::faceDetection(gImage* image) {
+	return objectDetection(image, "C:/dev/glist/glistplugins/gipOpenCV/assets/XML Files/haarcascade_frontalcatface.xml");
 }
 
-void gipOpenCV::contourDetection(gImage* image, int thickness, int thresh, int maxValue, Scalar color) {
+void gipOpenCV::objectsDraw(std::vector<cv::Rect> objects,gImage* image, std::string objectName, float fontSize, cv::Scalar color, int thickness, float scaleFactor, int minNeighbors) {
+	if(!objects.empty()) {
+		for(int i = 0; i < objects.size(); i++) {
+			cv::rectangle(mat, objects[i].tl(), objects[i].br(), color, thickness);
+			cv::putText(mat, objectName, objects[i].tl(), 0, fontSize, color, thickness);
+		}
+		cv::cvtColor(mat, mat, image->getComponentNum() + 1);
+		image->setImageData(mat.data, mat.cols, mat.rows, image->getComponentNum());
+		return;
+	}
+	cv::cvtColor(mat, mat, image->getComponentNum() + 1);
+	gLogi("gipOpenCV") << "List is Empty";
+}
+
+void gipOpenCV::contourDetection(gImage* image, int thickness, int thresh, int maxValue, cv::Scalar color) {
 	setMatData(image);
-	cvtColor(mat, mat, COLOR_BGRA2BGR);
-	Mat mat_copy = mat.clone();
-	cvtColor(mat, mat, COLOR_BGR2GRAY);
-	threshold(mat, mat, thresh, maxValue, THRESH_BINARY);
-	std::vector<std::vector<Point>> contours;
-	std::vector<Vec4i> hierarchy;
-	findContours(mat, contours, hierarchy, RETR_TREE, CHAIN_APPROX_NONE);
+	cv::cvtColor(mat, mat, cv::COLOR_BGRA2BGR);
+	cv::Mat mat_copy = mat.clone();
+	cv::cvtColor(mat, mat, cv::COLOR_BGR2GRAY);
+	cv::threshold(mat, mat, thresh, maxValue, cv::THRESH_BINARY);
+	std::vector<std::vector<cv::Point>> contours;
+	std::vector<cv::Vec4i> hierarchy;
+	cv::findContours(mat, contours, hierarchy, cv::RETR_TREE, cv::CHAIN_APPROX_NONE);
 	drawContours(mat_copy, contours, -1, color, thickness);
-	cvtColor(mat_copy, mat_copy, COLOR_BGR2RGBA);
+	cv::cvtColor(mat_copy, mat_copy, cv::COLOR_BGR2RGBA);
 	image->setImageData(mat_copy.data, mat_copy.cols, mat_copy.rows, 4);
 }
 
 void gipOpenCV::updateImagefromCam(gImage* image) {
 	cap.read(mat);
-	cvtColor(mat, mat, COLOR_BGR2RGBA);
+	cv::cvtColor(mat, mat, cv::COLOR_BGR2RGBA);
 	image->setImageData(mat.data, mat.cols, mat.rows, 4);
 }
 
 void gipOpenCV::setMatData(gImage* image) {
-	mat = imread(image->getFullPath(), IMREAD_UNCHANGED);
+	mat = cv::Mat(image->getHeight(), image->getWidth(), CV_8UC(image->getComponentNum()), image->getImageData());
+	cv::cvtColor(mat, mat, image->getComponentNum() + 1);
 }
 
 void gipOpenCV::setCam(int cam) {
-	cap = VideoCapture(cam);
+	cap = cv::VideoCapture(cam);
 }
