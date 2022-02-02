@@ -8,6 +8,7 @@
 #include "gipOpenCV.h"
 
 gipOpenCV::gipOpenCV() {
+
 }
 
 gipOpenCV::~gipOpenCV() {
@@ -16,17 +17,18 @@ gipOpenCV::~gipOpenCV() {
 
 void gipOpenCV::makeGray(gImage* image) {
 	setMatData(image);
-	cv::cvtColor(mat, mat, cv::COLOR_BGRA2GRAY);
-	cv::cvtColor(mat, mat, cv::COLOR_GRAY2RGBA);
-	image->setImageData(mat.data, mat.cols, mat.rows, 4);
+	cv::cvtColor(mat, mat, cv::COLOR_BGR2GRAY);
+	cv::cvtColor(mat, mat, cv::COLOR_GRAY2RGB);
+	gLogi("gipOpenCV") << gToStr(image->getComponentNum() + 1);
+	image->setImageData(mat.data, mat.cols, mat.rows, image->getComponentNum());
 }
 
 void gipOpenCV::makeCanny(gImage* image, float threshold1, float threshold2) {
 	setMatData(image);
-	cv::cvtColor(mat, mat, cv::COLOR_BGRA2GRAY);
+	cv::cvtColor(mat, mat, cv::COLOR_BGR2GRAY);
 	Canny(mat, mat, threshold1, threshold2);
-	cv::cvtColor(mat, mat, cv::COLOR_BGRA2RGBA);
-	image->setImageData(mat.data, mat.cols, mat.rows, 4);
+	cv::cvtColor(mat, mat, cv::COLOR_BGRA2RGB);
+	image->setImageData(mat.data, mat.cols, mat.rows, image->getComponentNum());
 }
 
 std::vector<cv::Rect> gipOpenCV::objectDetection(gImage* image, std::string xmlFilePath, float scaleFactor, int minNeighbors) {
@@ -44,7 +46,7 @@ std::vector<cv::Rect> gipOpenCV::objectDetection(gImage* image, std::string xmlF
 }
 
 std::vector<cv::Rect> gipOpenCV::faceDetection(gImage* image) {
-	return objectDetection(image, "C:/dev/glist/glistplugins/gipOpenCV/assets/XML Files/haarcascade_frontalcatface.xml");
+	return objectDetection(image, gGetFilesDir() + "haarcascade_frontalcatface.xml");
 }
 
 void gipOpenCV::objectsDraw(std::vector<cv::Rect> objects,gImage* image, std::string objectName, float fontSize, cv::Scalar color, int thickness, float scaleFactor, int minNeighbors) {
@@ -72,13 +74,37 @@ void gipOpenCV::contourDetection(gImage* image, int thickness, int thresh, int m
 	cv::findContours(mat, contours, hierarchy, cv::RETR_TREE, cv::CHAIN_APPROX_NONE);
 	drawContours(mat_copy, contours, -1, color, thickness);
 	cv::cvtColor(mat_copy, mat_copy, cv::COLOR_BGR2RGBA);
-	image->setImageData(mat_copy.data, mat_copy.cols, mat_copy.rows, 4);
+	image->setImageData(mat_copy.data, mat_copy.cols, mat_copy.rows, image->getComponentNum());
+}
+std::string gipOpenCV::readTextFromImage(gImage* image) {
+	gLogi("gipOpenCV") << "Calisti";
+	setMatData(image);
+
+//	TODO: When Tesseract Libary fixed, these comment lines will be removed.
+
+//	tesseract::TessBaseAPI *api = new tesseract::TessBaseAPI();
+//	api->Init(NULL, "eng", tesseract::OEM_LSTM_ONLY);
+//	api->SetPageSegMode(tesseract::PSM_AUTO);
+//	api->SetImage(mat.data, mat.cols, mat.rows, image->getComponentNum(), mat.step);
+//	std::string outext = std::string(api->GetUTF8Text());
+//	api->End();
+
+	return "";
 }
 
 void gipOpenCV::updateImagefromCam(gImage* image) {
 	cap.read(mat);
-	cv::cvtColor(mat, mat, cv::COLOR_BGR2RGBA);
-	image->setImageData(mat.data, mat.cols, mat.rows, 4);
+//	cv::cvtColor(mat, mat, image->getComponentNum() + 1);
+	image->setImageData(mat.data, mat.cols, mat.rows, image->getComponentNum());
+}
+
+void gipOpenCV::updateImagefromVideo(gImage* image) {
+	cap.read(mat);
+	gLogi("gipOpenCV") << gToStr(mat.data).size();
+//	cv::cvtColor(mat, mat, 4);
+//	image->clearData();
+	image->setImageData(mat.data, mat.cols, mat.rows, image->getComponentNum());
+	image->useData();
 }
 
 void gipOpenCV::setMatData(gImage* image) {
@@ -88,4 +114,8 @@ void gipOpenCV::setMatData(gImage* image) {
 
 void gipOpenCV::setCam(int cam) {
 	cap = cv::VideoCapture(cam);
+}
+
+void gipOpenCV::setVideo(std::string videopath) {
+	cap = cv::VideoCapture(gGetVideosDir() + videopath);
 }
