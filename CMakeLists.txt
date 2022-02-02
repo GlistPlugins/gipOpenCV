@@ -43,6 +43,8 @@ endif(WIN32)
 ##### PLUGIN DEPENDENCY LINKING (IF ANY) #####					
 if(WIN32)
 	list(APPEND PLUGIN_LINKLIBS
+		lept
+		tesseract
 		opencv_calib3d455
 		opencv_core455
 		opencv_dnn455
