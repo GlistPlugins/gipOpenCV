@@ -18,16 +18,18 @@ gipOpenCV::~gipOpenCV() {
 void gipOpenCV::makeGray(gImage* image) {
 	setMatData(image);
 	cv::cvtColor(mat, mat, cv::COLOR_BGR2GRAY);
-	cv::cvtColor(mat, mat, cv::COLOR_GRAY2RGB);
+	cv::cvtColor(mat, mat, image->getComponentNum() + 5);
 	gLogi("gipOpenCV") << gToStr(image->getComponentNum() + 1);
 	image->setImageData(mat.data, mat.cols, mat.rows, image->getComponentNum());
 }
 
 void gipOpenCV::makeCanny(gImage* image, float threshold1, float threshold2) {
 	setMatData(image);
-	cv::cvtColor(mat, mat, cv::COLOR_BGR2GRAY);
+	if(image->getComponentNum() == 4) cv::cvtColor(mat, mat, cv::COLOR_BGRA2GRAY);
+	else cv::cvtColor(mat, mat, cv::COLOR_BGR2GRAY);
 	Canny(mat, mat, threshold1, threshold2);
-	cv::cvtColor(mat, mat, cv::COLOR_BGRA2RGB);
+	if(image->getComponentNum() == 4) cv::cvtColor(mat, mat, cv::COLOR_BGRA2RGBA);
+	else cv::cvtColor(mat, mat, cv::COLOR_BGR2RGB);
 	image->setImageData(mat.data, mat.cols, mat.rows, image->getComponentNum());
 }
 
@@ -49,7 +51,7 @@ std::vector<cv::Rect> gipOpenCV::faceDetection(gImage* image) {
 	return objectDetection(image, gGetFilesDir() + "haarcascade_frontalcatface.xml");
 }
 
-void gipOpenCV::objectsDraw(std::vector<cv::Rect> objects,gImage* image, std::string objectName, float fontSize, cv::Scalar color, int thickness, float scaleFactor, int minNeighbors) {
+void gipOpenCV::objectsDraw(std::vector<cv::Rect> objects,gImage* image, std::string objectName, float fontSize, cv::Scalar color, int thickness) {
 	if(!objects.empty()) {
 		for(int i = 0; i < objects.size(); i++) {
 			cv::rectangle(mat, objects[i].tl(), objects[i].br(), color, thickness);
