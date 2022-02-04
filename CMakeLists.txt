@@ -19,6 +19,7 @@ list(APPEND PLUGIN_SRCS
 list(APPEND PLUGIN_INCLUDES
 			${PLUGIN_DIR}/src
 			${PREBUILT_DIR}/include
+			${PREBUILT_DIR}/include/glib
 )
 
 
@@ -45,6 +46,31 @@ if(WIN32)
 	list(APPEND PLUGIN_LINKLIBS
 		lept
 		tesseract
+		archive
+		cairo
+		cairo-gobject
+		libcairo-script-interpreter
+		icudt
+		icuin
+		icuio
+		icutest
+		icutu
+		icuuc
+		lept
+		pango-1.0
+		pangocairo-1.0
+		pangoft2-1.0
+		pangowin32-1.0
+		glib-2.0
+		gio-2.0
+		gmodule-2.0
+		gobject-2.0
+		gthread-2.0
+		harfbuzz
+		harfbuzz-gobject
+		harfbuzz-icu
+		harfbuzz-subset
+		z
 		opencv_calib3d455
 		opencv_core455
 		opencv_dnn455
