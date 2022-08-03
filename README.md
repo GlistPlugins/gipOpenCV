@@ -1,12 +1,9 @@
-# gipEmpty
-This is a baseplate for all the GlistEngine plugins and should be cloned under `~dev/glist/glistplugins` whenever developing a new plugin for the engine.
 # gipOpenCV
 OpenCV plugin for [GlistEngine](https://github.com/GlistEngine/GlistEngine).
 #### Requierements
 - [GlistEngine](https://github.com/GlistEngine/GlistEngine)
 - Data set
 
-The developer should put his external precompiled library files into the plugin's libs folder.
 ## Installation
 Fork & clone this project into ~/dev/glist/glistplugins
 
