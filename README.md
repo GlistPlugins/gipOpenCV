@@ -28,23 +28,24 @@ directory to the GlistApp project's PATH list.
 > Makes the imported image binary.
 2. ##### makeCanny
 > Finds the locations of objects basd on the XML file put in.
+> parameters: threshold1, threshold2 are the parameters that defines the thickness of the edges (Usually are taken as 100, 200).
 3. ##### objectDetection
 > Finds the locations of faces from image.
-4. ##### faceDetection 
+5. ##### faceDetection 
 > Draws squares on the image entered with locations taken from the location list.
-5. ##### objectsDraw
+6. ##### objectsDraw
 > Finds contours.
-6. ##### contourDetection
+7. ##### contourDetection
 > Detects the contour values of the uploaded image as integers.
-7. ##### readTextFromImage
+8. ##### readTextFromImage
 > Detects the text from uploaded image.
-8. ##### updateImagefromCam
+9. ##### updateImagefromCam
 > Updates the image that is detected from the cam matrix using its data.
-9. ##### updateImagefromVideo
+10. ##### updateImagefromVideo
 > Updates the image that is detected from the video as matrix using its data.
-10. ##### setCam
+11. ##### setCam
 > Assignes a number to the camera for easy access to videos.
-11. ##### setMatData
+12. ##### setMatData
 > Turns the data of the image to a matrix as its components and turns it to a color number.
-12. ##### setVideo
+13. ##### setVideo
 > Gets the video file by its path.
