@@ -22,9 +22,9 @@ directory to the GlistApp project's PATH list.
 ## How To Use 
 1. Add gipOpenCV into plugins of your GlistApp/CMakeLists.txt
 2. Include gipOpenCV.h in GameCanvas.h
-3. Open OpenCV project on GlistEngine and right click -> properties -> C/C++ General -> Preprocessor Include Paths -> GNU C++ -> Providers then add two CMAKE_EXPORT_COMPILE_COMMANDS 
+3. Right click gipOpenCV project on GlistEngine and select Properties -> C/C++ General -> Preprocessor Include Paths -> GNU C++ -> Providers then enable 2 CMAKE_EXPORT_COMPILE_COMMANDS 
 If it still says "terminated" after execution;
-1. gipOpenCV project -> right click -> Properties -> C/C++ Build -> Environment -> PATH -> (add ;${workspace_loc}\..\..\..\..\glistplugins\gipOpenCV\prebuilts\bin)
+4. gipOpenCV project -> right click -> Properties -> C/C++ Build -> Environment -> PATH -> (add ;${workspace_loc}\..\..\..\..\glistplugins\gipOpenCV\prebuilts\bin)
 
 ## Functions
 1. ##### makeGray
