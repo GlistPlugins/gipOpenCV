@@ -94,6 +94,20 @@ std::string gipOpenCV::readTextFromImage(gImage* image) {
 	return "";
 }
 
+std::vector<cv::Rect> gipOpenCV::carPlateDetection(gImage* image) {
+	return objectDetection(image, gGetFilesDir() + "haarcascade_russian_plate_number.xml");
+}
+
+void gipOpenCV::cropMat(std::vector<cv::Rect> objects) {
+	if(!objects.empty() && objects.size() == 1) {
+		cv::Mat croppedmat = originalmat(cv::Range(objects[0].tl().y, objects[0].br().y), cv::Range(objects[0].tl().x, objects[0].br().x));
+//		cv::cvtColor(croppedmat, croppedmat, image->getComponentNum() + 1);
+		cv::imshow("Crop", croppedmat);
+//		cv::cvtColor(croppedmat, croppedmat, image->getComponentNum() + 1);
+//		image->setImageData(croppedmat.data, croppedmat.cols, croppedmat.rows, image->getComponentNum());
+	}
+}
+
 void gipOpenCV::updateImagefromCam(gImage* image) {
 	cap.read(mat);
 //	cv::cvtColor(mat, mat, image->getComponentNum() + 1);
@@ -112,6 +126,7 @@ void gipOpenCV::updateImagefromVideo(gImage* image) {
 void gipOpenCV::setMatData(gImage* image) {
 	mat = cv::Mat(image->getHeight(), image->getWidth(), CV_8UC(image->getComponentNum()), image->getImageData());
 	cv::cvtColor(mat, mat, image->getComponentNum() + 1);
+	originalmat = mat.clone();
 }
 
 void gipOpenCV::setCam(int cam) {
