@@ -22,6 +22,12 @@ list(APPEND PLUGIN_INCLUDES
 			${PREBUILT_DIR}/include/glib
 )
 
+if(LINUX)
+	list(APPEND PLUGIN_INCLUDES
+		/usr/include/opencv4
+	)
+endif(LINUX)
+
 
 ##### PLUGIN DEPENDENCY LOCATIONS (IF ANY) #####
 if(WIN32)
@@ -36,6 +42,11 @@ if(WIN32)
 	)
 elseif(LINUX)
 	#Linux libs here
+		
+	add_library(opencv_core SHARED IMPORTED)
+	set_target_properties(opencv_core PROPERTIES IMPORTED_LOCATION
+			/usr/lib/x86_64-linux-gnu/libopencv_core.so)
+	
 elseif(APPLE)
 	#Macos libs here
 endif(WIN32)
@@ -90,6 +101,21 @@ if(WIN32)
 elseif(LINUX)
 	list(APPEND PLUGIN_LINKLIBS
 				#Lib names
+		opencv_calib3d
+		opencv_core
+		opencv_dnn
+		opencv_features2d
+		opencv_flann
+#		opencv_gapi
+		opencv_highgui
+		opencv_imgcodecs
+		opencv_imgproc
+		opencv_ml
+		opencv_objdetect
+		opencv_photo
+		opencv_stitching
+		opencv_video
+		opencv_videoio
 	)
 elseif(APPLE)
 	list(APPEND PLUGIN_LINKLIBS
