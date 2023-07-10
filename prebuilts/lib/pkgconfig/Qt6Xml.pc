@@ -1,0 +1,13 @@
+prefix=/clang64
+exec_prefix=${prefix}
+bindir=${prefix}/bin
+libexecdir=${prefix}/share/qt6/bin
+libdir=${prefix}/lib
+includedir=${prefix}/include/qt6
+
+Name: Qt6 Xml
+Description: Qt Xml module
+Version: 6.5.1
+Libs: -L${libdir} -lQt6Xml
+Cflags: -I${includedir}/QtXml -I${includedir} -DQT_XML_LIB
+Requires: Qt6Core

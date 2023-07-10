@@ -1,0 +1,9 @@
+prefix=/clang64
+includedir=${prefix}/include
+libdir=${prefix}/lib
+
+Name: libdav1d
+Description: AV1 decoding library
+Version: 1.2.1
+Libs: -L${libdir} -ldav1d
+Cflags: -I${includedir}

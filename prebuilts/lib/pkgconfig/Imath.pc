@@ -1,0 +1,17 @@
+##
+## SPDX-License-Identifier: BSD-3-Clause
+## Copyright Contributors to the OpenEXR Project.
+##
+
+prefix=/clang64
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: Imath
+Description: Imath library: vector/matrix and math operations, plus the half type.
+Version: 3.1.9
+Requires:
+Conflicts:
+Libs: -L${libdir} -lImath
+Cflags: -I${includedir} -I${includedir}/Imath

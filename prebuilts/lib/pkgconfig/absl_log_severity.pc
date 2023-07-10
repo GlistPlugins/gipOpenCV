@@ -1,0 +1,12 @@
+prefix=/clang64
+exec_prefix=${prefix}
+libdir=/clang64/lib
+includedir=/clang64/include
+
+Name: absl_log_severity
+Description: Abseil log_severity library
+URL: https://abseil.io/
+Version: 20230125
+Requires: absl_core_headers = 20230125
+Libs: -L${libdir}   -labsl_log_severity
+Cflags: -I${includedir} -Wno-float-conversion -Wno-implicit-float-conversion -Wno-implicit-int-float-conversion -Wno-unknown-warning-option -DNOMINMAX

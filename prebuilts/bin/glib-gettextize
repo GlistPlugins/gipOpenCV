@@ -2,6 +2,8 @@
 #
 # Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
 #
+# SPDX-License-Identifier: GPL-2.0-or-later
+#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
@@ -37,19 +39,19 @@ Usage: glib-gettextize [OPTION]... [package-dir]
   -f, --force          force writing of new files even if old exist
 Report bugs to https://gitlab.gnome.org/GNOME/glib/issues/new."
 package=glib
-version=2.70.2
+version=2.76.3
 try_ln_s=:
 
 # Directory where the sources are stored.
-prefix=/mingw64
+prefix=/clang64
 case `uname` in
 MINGW32*)
     prefix="`dirname $0`/.."
     ;;
 esac
 
-datarootdir=/mingw64/share
-datadir=/mingw64/share
+datarootdir=/clang64/share
+datadir=/clang64/share
 
 gettext_dir=$datadir/glib-2.0/gettext
 

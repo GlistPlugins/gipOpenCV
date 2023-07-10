@@ -1,0 +1,14 @@
+prefix=/clang64
+exec_prefix=${prefix}
+libdir=/clang64/lib
+includedir=/clang64/include
+
+Name: libavformat
+Description: FFmpeg container format library
+Version: 60.3.100
+Requires: 
+Requires.private: libavcodec >= 60.3.100, libswresample >= 4.10.100, libavutil >= 58.2.100
+Conflicts:
+Libs: -L${libdir}  -lavformat 
+Libs.private: -lm -lxml2 -lbz2 -lgme -lmodplug -lbluray -lz -lgnutls -lrtmp -lz -lgmp -lgnutls -lhogweed -lnettle -lsrt -lws2_32 -lssh
+Cflags: -I${includedir}

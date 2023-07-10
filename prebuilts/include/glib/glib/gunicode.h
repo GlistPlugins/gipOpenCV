@@ -3,6 +3,8 @@
  *  Copyright (C) 1999, 2000 Tom Tromey
  *  Copyright 2000, 2005 Red Hat, Inc.
  *
+ * SPDX-License-Identifier: LGPL-2.1-or-later
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -208,7 +210,7 @@ typedef enum
  * Since new unicode versions may add new types here, applications should be ready 
  * to handle unknown values. They may be regarded as %G_UNICODE_BREAK_UNKNOWN.
  *
- * See [Unicode Line Breaking Algorithm](http://www.unicode.org/unicode/reports/tr14/).
+ * See [Unicode Line Breaking Algorithm](https://www.unicode.org/reports/tr14/).
  */
 typedef enum
 {
@@ -430,6 +432,14 @@ typedef enum
  * @G_UNICODE_SCRIPT_DIVES_AKURU:          Dives Akuru. Since: 2.66
  * @G_UNICODE_SCRIPT_KHITAN_SMALL_SCRIPT:  Khitan small script. Since: 2.66
  * @G_UNICODE_SCRIPT_YEZIDI:               Yezidi. Since: 2.66
+ * @G_UNICODE_SCRIPT_CYPRO_MINOAN:         Cypro-Minoan. Since: 2.72
+ * @G_UNICODE_SCRIPT_OLD_UYGHUR:           Old Uyghur. Since: 2.72
+ * @G_UNICODE_SCRIPT_TANGSA:               Tangsa. Since: 2.72
+ * @G_UNICODE_SCRIPT_TOTO:                 Toto. Since: 2.72
+ * @G_UNICODE_SCRIPT_VITHKUQI:             Vithkuqi. Since: 2.72
+ * @G_UNICODE_SCRIPT_MATH:                 Mathematical notation. Since: 2.72
+ * @G_UNICODE_SCRIPT_KAWI:                 Kawi. Since 2.74
+ * @G_UNICODE_SCRIPT_NAG_MUNDARI:          Nag Mundari. Since 2.74
  *
  * The #GUnicodeScript enumeration identifies different writing
  * systems. The values correspond to the names as defined in the
@@ -627,7 +637,21 @@ typedef enum
   G_UNICODE_SCRIPT_CHORASMIAN,             /* Chrs */
   G_UNICODE_SCRIPT_DIVES_AKURU,            /* Diak */
   G_UNICODE_SCRIPT_KHITAN_SMALL_SCRIPT,    /* Kits */
-  G_UNICODE_SCRIPT_YEZIDI                  /* Yezi */
+  G_UNICODE_SCRIPT_YEZIDI,                 /* Yezi */
+
+  /* Unicode 14.0 additions */
+  G_UNICODE_SCRIPT_CYPRO_MINOAN,           /* Cpmn */
+  G_UNICODE_SCRIPT_OLD_UYGHUR,             /* Ougr */
+  G_UNICODE_SCRIPT_TANGSA,                 /* Tnsa */
+  G_UNICODE_SCRIPT_TOTO,                   /* Toto */
+  G_UNICODE_SCRIPT_VITHKUQI,               /* Vith */
+
+  /* not really a Unicode script, but part of ISO 15924 */
+  G_UNICODE_SCRIPT_MATH,                   /* Zmth */
+
+  /* Unicode 15.0 additions */
+  G_UNICODE_SCRIPT_KAWI GLIB_AVAILABLE_ENUMERATOR_IN_2_74,          /* Kawi */
+  G_UNICODE_SCRIPT_NAG_MUNDARI GLIB_AVAILABLE_ENUMERATOR_IN_2_74,   /* Nag Mundari */
 } GUnicodeScript;
 
 GLIB_AVAILABLE_IN_ALL

@@ -1,0 +1,10 @@
+prefix=/clang64
+includedir=${prefix}/include
+libdir=${prefix}/lib
+
+Name: gstreamer-gl-prototypes-1.0
+Description: Streaming media framework, OpenGL plugins libraries (OpenGL Prototypes)
+Version: 1.22.4
+Requires: gstreamer-gl-1.0
+Libs: -lopengl32
+Cflags: -I${includedir}/gstreamer-1.0
