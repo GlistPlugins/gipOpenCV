@@ -81,6 +81,15 @@ void gipOpenCV::contourDetection(gImage* image, int thickness, int thresh, int m
 std::string gipOpenCV::readTextFromImage(gImage* image) {
 	gLogi("gipOpenCV") << "Calisti";
 	setMatData(image);
+	tesseract::TessBaseAPI *ocr = new tesseract::TessBaseAPI();
+	ocr->SetVariable("debug_file", "/dev/null");
+	ocr->Init("C:/dev/glist/glistplugins/gipOpenCV/prebuilts/share/tessdata", "eng", tesseract::OEM_LSTM_ONLY);
+	ocr->SetPageSegMode(tesseract::PSM_AUTO);
+    ocr->SetImage(mat.data, mat.cols, mat.rows, 3, mat.step);
+    std::string outText = std::string(ocr->GetUTF8Text());
+    ocr->End();
+    return outText;
+
 
 //	TODO: When Tesseract Libary fixed, these comment lines will be removed.
 
