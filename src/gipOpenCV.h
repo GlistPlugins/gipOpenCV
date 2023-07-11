@@ -26,6 +26,16 @@
  */
 class gipOpenCV : public gBasePlugin {
 public:
+	enum {
+		LANG_ENGLISH,
+		LANG_FRENCH,
+		LANG_SPANISH,
+		LANG_ITALIAN,
+		LANG_DEUTHSCH,
+		LANG_PORTUGUESE,
+		LANG_TURKISH,
+		LANG_CUSTOM
+	};
 	gipOpenCV();
 	virtual ~gipOpenCV();
 
@@ -97,11 +107,14 @@ public:
 	void setMatData(gImage* image);
 	void setCam(int cam = 0);
 	void setVideo(std::string videopath);
-	void setTessDataPath(char* tessdatapath);
+	void setDataLanguage(int languageNo);
 private:
+	static const int numberoflanguages = 7;
 	cv::Mat mat, originalmat;
 	cv::VideoCapture cap;
-	char* tessdatapath;
+	std::string tessdatapath;
+	char* languages[numberoflanguages];
+	int langno;
 };
 
 #endif /* SRC_GIPOPENCV_H_ */

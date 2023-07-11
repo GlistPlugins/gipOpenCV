@@ -8,7 +8,15 @@
 #include "gipOpenCV.h"
 
 gipOpenCV::gipOpenCV() {
-	tessdatapath = "C:/dev/glist/glistplugins/gipOpenCV/prebuilts/share/tessdata";
+	tessdatapath = gGetFilesDir() + "tessdata";
+	languages[0] = "eng";
+	languages[1] = "fra";
+	languages[2] = "spa";
+	languages[3] = "ita";
+	languages[4] = "deu";
+	languages[5] = "por";
+	languages[6] = "tur";
+	langno = 0;
 }
 
 gipOpenCV::~gipOpenCV() {
@@ -82,7 +90,7 @@ std::string gipOpenCV::readTextFromImage(gImage* image) {
 	setMatData(image);
 	tesseract::TessBaseAPI *ocr = new tesseract::TessBaseAPI();
 	ocr->SetVariable("debug_file", "/dev/null");
-	ocr->Init(getTessDataPath(), "eng", tesseract::OEM_LSTM_ONLY);
+	ocr->Init(getTessDataPath(), languages[langno], tesseract::OEM_LSTM_ONLY);
 	ocr->SetPageSegMode(tesseract::PSM_AUTO);
     ocr->SetImage(mat.data, mat.cols, mat.rows, 3, mat.step);
     std::string outText = std::string(ocr->GetUTF8Text());
@@ -145,9 +153,10 @@ void gipOpenCV::setVideo(std::string videopath) {
 }
 
 char* gipOpenCV::getTessDataPath() {
-	return this->tessdatapath;
+	char* filesdir = const_cast<char*>(tessdatapath.c_str());
+	return filesdir;
 }
 
-void gipOpenCV::setTessDataPath(char *tessdatapath) {
-	this->tessdatapath = tessdatapath;
+void gipOpenCV::setDataLanguage(int languageNo) {
+	langno = languageNo;
 }
