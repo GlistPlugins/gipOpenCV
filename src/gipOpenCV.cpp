@@ -8,7 +8,15 @@
 #include "gipOpenCV.h"
 
 gipOpenCV::gipOpenCV() {
-
+	tessdatapath = gGetFilesDir() + "tessdata";
+	languages[0] = "eng";
+	languages[1] = "fra";
+	languages[2] = "spa";
+	languages[3] = "ita";
+	languages[4] = "deu";
+	languages[5] = "por";
+	languages[6] = "tur";
+	langno = 0;
 }
 
 gipOpenCV::~gipOpenCV() {
@@ -79,8 +87,16 @@ void gipOpenCV::contourDetection(gImage* image, int thickness, int thresh, int m
 	image->setImageData(mat_copy.data, mat_copy.cols, mat_copy.rows, image->getComponentNum());
 }
 std::string gipOpenCV::readTextFromImage(gImage* image) {
-	gLogi("gipOpenCV") << "Calisti";
 	setMatData(image);
+	tesseract::TessBaseAPI *ocr = new tesseract::TessBaseAPI();
+	ocr->SetVariable("debug_file", "/dev/null");
+	ocr->Init(getTessDataPath(), languages[langno], tesseract::OEM_LSTM_ONLY);
+	ocr->SetPageSegMode(tesseract::PSM_AUTO);
+    ocr->SetImage(mat.data, mat.cols, mat.rows, 3, mat.step);
+    std::string outText = std::string(ocr->GetUTF8Text());
+    ocr->End();
+    return outText;
+
 
 //	TODO: When Tesseract Libary fixed, these comment lines will be removed.
 
@@ -91,7 +107,6 @@ std::string gipOpenCV::readTextFromImage(gImage* image) {
 //	std::string outext = std::string(api->GetUTF8Text());
 //	api->End();
 
-	return "";
 }
 
 std::vector<cv::Rect> gipOpenCV::carPlateDetection(gImage* image) {
@@ -135,4 +150,13 @@ void gipOpenCV::setCam(int cam) {
 
 void gipOpenCV::setVideo(std::string videopath) {
 	cap = cv::VideoCapture(gGetVideosDir() + videopath);
+}
+
+char* gipOpenCV::getTessDataPath() {
+	char* filesdir = const_cast<char*>(tessdatapath.c_str());
+	return filesdir;
+}
+
+void gipOpenCV::setDataLanguage(int languageNo) {
+	langno = languageNo;
 }

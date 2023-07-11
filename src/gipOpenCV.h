@@ -26,6 +26,16 @@
  */
 class gipOpenCV : public gBasePlugin {
 public:
+	enum {
+		LANG_ENGLISH,
+		LANG_FRENCH,
+		LANG_SPANISH,
+		LANG_ITALIAN,
+		LANG_DEUTHSCH,
+		LANG_PORTUGUESE,
+		LANG_TURKISH,
+		LANG_CUSTOM
+	};
 	gipOpenCV();
 	virtual ~gipOpenCV();
 
@@ -84,6 +94,8 @@ public:
 	 * @param image an image where detection contour.
 	 *
 	 */
+	char* getTessDataPath();
+
 	void contourDetection(gImage* image, int thickness = 1, int thresh = 150, int maxValue = 255, cv::Scalar color = cv::Scalar(0, 255, 0));
 	std::string readTextFromImage(gImage* image);
 	std::vector<cv::Rect> carPlateDetection(gImage* image);
@@ -95,9 +107,14 @@ public:
 	void setMatData(gImage* image);
 	void setCam(int cam = 0);
 	void setVideo(std::string videopath);
+	void setDataLanguage(int languageNo);
 private:
+	static const int numberoflanguages = 7;
 	cv::Mat mat, originalmat;
 	cv::VideoCapture cap;
+	std::string tessdatapath;
+	char* languages[numberoflanguages];
+	int langno;
 };
 
 #endif /* SRC_GIPOPENCV_H_ */
