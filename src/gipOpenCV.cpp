@@ -8,7 +8,7 @@
 #include "gipOpenCV.h"
 
 gipOpenCV::gipOpenCV() {
-
+	tessdatapath = "C:/dev/glist/glistplugins/gipOpenCV/prebuilts/share/tessdata";
 }
 
 gipOpenCV::~gipOpenCV() {
@@ -79,11 +79,10 @@ void gipOpenCV::contourDetection(gImage* image, int thickness, int thresh, int m
 	image->setImageData(mat_copy.data, mat_copy.cols, mat_copy.rows, image->getComponentNum());
 }
 std::string gipOpenCV::readTextFromImage(gImage* image) {
-	gLogi("gipOpenCV") << "Calisti";
 	setMatData(image);
 	tesseract::TessBaseAPI *ocr = new tesseract::TessBaseAPI();
 	ocr->SetVariable("debug_file", "/dev/null");
-	ocr->Init("C:/dev/glist/glistplugins/gipOpenCV/prebuilts/share/tessdata", "eng", tesseract::OEM_LSTM_ONLY);
+	ocr->Init(getTessDataPath(), "eng", tesseract::OEM_LSTM_ONLY);
 	ocr->SetPageSegMode(tesseract::PSM_AUTO);
     ocr->SetImage(mat.data, mat.cols, mat.rows, 3, mat.step);
     std::string outText = std::string(ocr->GetUTF8Text());
@@ -100,7 +99,6 @@ std::string gipOpenCV::readTextFromImage(gImage* image) {
 //	std::string outext = std::string(api->GetUTF8Text());
 //	api->End();
 
-	return "";
 }
 
 std::vector<cv::Rect> gipOpenCV::carPlateDetection(gImage* image) {
@@ -144,4 +142,12 @@ void gipOpenCV::setCam(int cam) {
 
 void gipOpenCV::setVideo(std::string videopath) {
 	cap = cv::VideoCapture(gGetVideosDir() + videopath);
+}
+
+char* gipOpenCV::getTessDataPath() {
+	return this->tessdatapath;
+}
+
+void gipOpenCV::setTessDataPath(char *tessdatapath) {
+	this->tessdatapath = tessdatapath;
 }

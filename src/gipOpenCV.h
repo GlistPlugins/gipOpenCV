@@ -84,6 +84,8 @@ public:
 	 * @param image an image where detection contour.
 	 *
 	 */
+	char* getTessDataPath();
+
 	void contourDetection(gImage* image, int thickness = 1, int thresh = 150, int maxValue = 255, cv::Scalar color = cv::Scalar(0, 255, 0));
 	std::string readTextFromImage(gImage* image);
 	std::vector<cv::Rect> carPlateDetection(gImage* image);
@@ -95,9 +97,11 @@ public:
 	void setMatData(gImage* image);
 	void setCam(int cam = 0);
 	void setVideo(std::string videopath);
+	void setTessDataPath(char* tessdatapath);
 private:
 	cv::Mat mat, originalmat;
 	cv::VideoCapture cap;
+	char* tessdatapath;
 };
 
 #endif /* SRC_GIPOPENCV_H_ */
