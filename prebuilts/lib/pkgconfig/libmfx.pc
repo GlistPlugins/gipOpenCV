@@ -1,0 +1,11 @@
+prefix=/clang64
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libmfx
+Description: Intel Media SDK Dispatched static library
+Version: 1.34
+Libs: -L${libdir} -lmfx -lstdc++ -lole32 -luuid  
+Libs.private:
+Cflags: -I${includedir}

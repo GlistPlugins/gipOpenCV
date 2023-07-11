@@ -1,0 +1,12 @@
+prefix=/clang64
+exec_prefix=${prefix}
+libdir=/clang64/lib
+includedir=/clang64/include
+
+Name: absl_any
+Description: Abseil any library
+URL: https://abseil.io/
+Version: 20230125
+Requires: absl_bad_any_cast = 20230125, absl_config = 20230125, absl_core_headers = 20230125, absl_fast_type_id = 20230125, absl_type_traits = 20230125, absl_utility = 20230125
+Libs: -L${libdir}  
+Cflags: -I${includedir} -Wno-float-conversion -Wno-implicit-float-conversion -Wno-implicit-int-float-conversion -Wno-unknown-warning-option -DNOMINMAX

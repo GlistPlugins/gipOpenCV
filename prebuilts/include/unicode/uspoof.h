@@ -35,7 +35,7 @@
 
 /**
  * \file
- * \brief Unicode Security and Spoofing Detection, C API.
+ * \brief C API: Unicode Security and Spoofing Detection
  *
  * <p>
  * This class, based on <a href="http://unicode.org/reports/tr36">Unicode Technical Report #36</a> and
@@ -1134,7 +1134,7 @@ uspoof_getCheckResultNumerics(const USpoofCheckResult *checkResult, UErrorCode *
  * @param sc      The USpoofChecker
  * @param id1     The first of the two identifiers to be compared for
  *                confusability.  The strings are in UTF-16 format.
- * @param length1 the length of the first identifer, expressed in
+ * @param length1 the length of the first identifier, expressed in
  *                16 bit UTF-16 code units, or -1 if the string is
  *                nul terminated.
  * @param id2     The second of the two identifiers to be compared for

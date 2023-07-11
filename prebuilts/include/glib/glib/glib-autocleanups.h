@@ -1,6 +1,8 @@
 /*
  * Copyright © 2015 Canonical Limited
  *
+ * SPDX-License-Identifier: LGPL-2.1-or-later
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -99,5 +101,7 @@ G_DEFINE_AUTOPTR_CLEANUP_FUNC(GVariantType, g_variant_type_free)
 G_DEFINE_AUTO_CLEANUP_FREE_FUNC(GStrv, g_strfreev, NULL)
 G_DEFINE_AUTOPTR_CLEANUP_FUNC(GRefString, g_ref_string_release)
 G_DEFINE_AUTOPTR_CLEANUP_FUNC(GUri, g_uri_unref)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GPathBuf, g_path_buf_free)
+G_DEFINE_AUTO_CLEANUP_CLEAR_FUNC (GPathBuf, g_path_buf_clear)
 
 G_GNUC_END_IGNORE_DEPRECATIONS

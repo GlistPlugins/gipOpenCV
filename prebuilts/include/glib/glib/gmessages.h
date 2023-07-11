@@ -1,6 +1,8 @@
 /* GLIB - Library of useful routines for C programming
  * Copyright (C) 1995-1997  Peter Mattis, Spencer Kimball and Josh MacDonald
  *
+ * SPDX-License-Identifier: LGPL-2.1-or-later
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -249,6 +251,12 @@ GLIB_AVAILABLE_IN_2_68
 gboolean        g_log_writer_default_would_drop (GLogLevelFlags  log_level,
                                                  const char     *log_domain);
 
+/* G_MESSAGES_DEBUG enablement */
+GLIB_AVAILABLE_IN_2_72
+gboolean         g_log_get_debug_enabled       (void);
+GLIB_AVAILABLE_IN_2_72
+void             g_log_set_debug_enabled       (gboolean         enabled);
+
 /**
  * G_DEBUG_HERE:
  *
@@ -283,8 +291,8 @@ void g_warn_message           (const char     *domain,
                                int             line,
                                const char     *func,
                                const char     *warnexpr) G_ANALYZER_NORETURN;
-GLIB_DEPRECATED
 G_NORETURN
+GLIB_DEPRECATED
 void g_assert_warning         (const char *log_domain,
 			       const char *file,
 			       const int   line,
@@ -401,7 +409,7 @@ void g_log_structured_standard (const gchar    *log_domain,
                                        format)
 #endif
 #else   /* no varargs macros */
-static G_NORETURN void g_error (const gchar *format, ...) G_ANALYZER_NORETURN;
+G_NORETURN static void g_error (const gchar *format, ...) G_ANALYZER_NORETURN;
 static void g_critical (const gchar *format, ...) G_ANALYZER_NORETURN;
 
 static inline void

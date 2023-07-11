@@ -2,6 +2,8 @@
  *
  * Copyright (C) 2008-2011 Red Hat, Inc.
  *
+ * SPDX-License-Identifier: LGPL-2.1-or-later
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -20,6 +22,7 @@
 #define __G_NETWORKING_H__
 
 #include <glib.h>
+#include <gio/gio-visibility.h>
 
 #ifdef G_OS_WIN32
 #include <winsock2.h>
@@ -70,7 +73,7 @@
 
 G_BEGIN_DECLS
 
-GLIB_AVAILABLE_IN_2_36
+GIO_AVAILABLE_IN_2_36
 void g_networking_init (void);
 
 G_END_DECLS

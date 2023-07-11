@@ -1,0 +1,12 @@
+prefix=/clang64
+libdir=${prefix}/lib
+libsuffix=
+includedir=${prefix}/include/openblas
+
+openblas_config=USE_64BITINT= NO_CBLAS= NO_LAPACK= NO_LAPACKE= DYNAMIC_ARCH=ON DYNAMIC_OLDER=OFF NO_AFFINITY=1 USE_OPENMP=ON CORE2 MAX_THREADS=64 
+Name: OpenBLAS
+Description: OpenBLAS is an optimized BLAS library based on GotoBLAS2 1.13 BSD version
+Version: 
+URL: https://github.com/xianyi/OpenBLAS
+Libs: -fopenmp=libomp -L${libdir} -lopenblas${libsuffix} 
+Cflags: -I${includedir}

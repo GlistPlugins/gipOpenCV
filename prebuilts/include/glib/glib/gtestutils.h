@@ -2,6 +2,8 @@
  * Copyright (C) 2007 Imendio AB
  * Authors: Tim Janik
  *
+ * SPDX-License-Identifier: LGPL-2.1-or-later
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -28,6 +30,7 @@
 #include <glib/gerror.h>
 #include <glib/gslist.h>
 #include <errno.h>
+#include <stdlib.h>
 #include <string.h>
 
 G_BEGIN_DECLS
@@ -79,7 +82,7 @@ typedef void (*GTestFixtureFunc) (gpointer      fixture,
                                         } G_STMT_END
 #define g_assert_cmpmem(m1, l1, m2, l2) G_STMT_START {\
                                              gconstpointer __m1 = m1, __m2 = m2; \
-                                             int __l1 = l1, __l2 = l2; \
+                                             size_t __l1 = (size_t) l1, __l2 = (size_t) l2; \
                                              if (__l1 != 0 && __m1 == NULL) \
                                                g_assertion_message (G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, \
                                                                     "assertion failed (" #l1 " == 0 || " #m1 " != NULL)"); \
@@ -192,7 +195,7 @@ typedef void (*GTestFixtureFunc) (gpointer      fixture,
                                         } G_STMT_END
 
 /* Use nullptr in C++ to catch misuse of these macros. */
-#if defined(__cplusplus) && __cplusplus >= 201100L
+#if G_CXX_STD_CHECK_VERSION (11)
 #define g_assert_null(expr)             G_STMT_START { if G_LIKELY ((expr) == nullptr) ; else \
                                                g_assertion_message (G_LOG_DOMAIN, __FILE__, __LINE__, G_STRFUNC, \
                                                                     "'" #expr "' should be nullptr"); \
@@ -275,6 +278,7 @@ void    g_test_init                     (int            *argc,
  *  - g_get_user_config_dir()
  *  - g_get_system_data_dirs()
  *  - g_get_user_data_dir()
+ *  - g_get_user_state_dir()
  *  - g_get_user_runtime_dir()
  *
  * The subdirectories may not be created by the test harness; as with normal
@@ -422,6 +426,7 @@ void    g_test_queue_destroy            (GDestroyNotify destroy_func,
 
 /**
  * GTestTrapFlags:
+ * @G_TEST_TRAP_DEFAULT: Default behaviour. Since: 2.74
  * @G_TEST_TRAP_SILENCE_STDOUT: Redirect stdout of the test child to
  *     `/dev/null` so it cannot be observed on the console during test
  *     runs. The actual output is still captured though to allow later
@@ -442,6 +447,7 @@ void    g_test_queue_destroy            (GDestroyNotify destroy_func,
  * #GTestSubprocessFlags.
  */
 typedef enum {
+  G_TEST_TRAP_DEFAULT GLIB_AVAILABLE_ENUMERATOR_IN_2_74 = 0,
   G_TEST_TRAP_SILENCE_STDOUT    = 1 << 7,
   G_TEST_TRAP_SILENCE_STDERR    = 1 << 8,
   G_TEST_TRAP_INHERIT_STDIN     = 1 << 9
@@ -456,6 +462,7 @@ gboolean g_test_trap_fork               (guint64              usec_timeout,
 G_GNUC_END_IGNORE_DEPRECATIONS
 
 typedef enum {
+  G_TEST_SUBPROCESS_DEFAULT GLIB_AVAILABLE_ENUMERATOR_IN_2_74 = 0,
   G_TEST_SUBPROCESS_INHERIT_STDIN  = 1 << 0,
   G_TEST_SUBPROCESS_INHERIT_STDOUT = 1 << 1,
   G_TEST_SUBPROCESS_INHERIT_STDERR = 1 << 2
@@ -534,8 +541,8 @@ void    g_assertion_message             (const char     *domain,
                                          int             line,
                                          const char     *func,
                                          const char     *message) G_ANALYZER_NORETURN;
-GLIB_AVAILABLE_IN_ALL
 G_NORETURN
+GLIB_AVAILABLE_IN_ALL
 void    g_assertion_message_expr        (const char     *domain,
                                          const char     *file,
                                          int             line,

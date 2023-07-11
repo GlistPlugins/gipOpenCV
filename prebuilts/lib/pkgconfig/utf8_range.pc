@@ -1,0 +1,11 @@
+prefix=/clang64
+exec_prefix=/clang64
+libdir=/clang64/lib
+includedir=/clang64/include
+
+Name: UTF8 Range
+Description: Google's UTF8 Library
+Version: 1.0
+Requires: absl_strings
+Libs: -L${libdir} -lutf8_validity -lutf8_range -lpthread
+Cflags: -I${includedir}

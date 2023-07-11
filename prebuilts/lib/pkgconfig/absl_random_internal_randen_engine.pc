@@ -1,0 +1,12 @@
+prefix=/clang64
+exec_prefix=${prefix}
+libdir=/clang64/lib
+includedir=/clang64/include
+
+Name: absl_random_internal_randen_engine
+Description: Abseil random_internal_randen_engine library
+URL: https://abseil.io/
+Version: 20230125
+Requires: absl_endian = 20230125, absl_random_internal_iostream_state_saver = 20230125, absl_random_internal_randen = 20230125, absl_raw_logging_internal = 20230125, absl_type_traits = 20230125
+Libs: -L${libdir}  
+Cflags: -I${includedir} -Wno-float-conversion -Wno-implicit-float-conversion -Wno-implicit-int-float-conversion -Wno-unknown-warning-option -DNOMINMAX

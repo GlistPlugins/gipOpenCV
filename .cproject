@@ -18,7 +18,7 @@
 							<option id="cdt.managedbuild.option.gnu.cross.prefix.1801832436" name="Prefix" superClass="cdt.managedbuild.option.gnu.cross.prefix"/>
 							<option id="cdt.managedbuild.option.gnu.cross.path.318301334" name="Path" superClass="cdt.managedbuild.option.gnu.cross.path"/>
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.targetPlatform.gnu.cross.2085315954" isAbstract="false" osList="all" superClass="cdt.managedbuild.targetPlatform.gnu.cross"/>
-							<builder buildPath="/giEmptySample/build/Default" id="de.marw.cdt.cmake.core.genscriptbuilder.1603025236" keepEnvironmentInBuildfile="false" name="CMake Builder" parallelBuildOn="false" superClass="de.marw.cdt.cmake.core.genscriptbuilder">
+							<builder buildPath="/giEmptySample/build/Default" id="de.marw.cdt.cmake.core.genscriptbuilder.1603025236" keepEnvironmentInBuildfile="false" name="CMake Builder" parallelBuildOn="false">
 								<outputEntries>
 									<entry excluding="**/CMakeFiles/**" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name="build"/>
 								</outputEntries>
@@ -67,7 +67,7 @@
 							<option id="cdt.managedbuild.option.gnu.cross.prefix.1935162243" name="Prefix" superClass="cdt.managedbuild.option.gnu.cross.prefix"/>
 							<option id="cdt.managedbuild.option.gnu.cross.path.2092194849" name="Path" superClass="cdt.managedbuild.option.gnu.cross.path"/>
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.targetPlatform.gnu.cross.1037822276" isAbstract="false" osList="all" superClass="cdt.managedbuild.targetPlatform.gnu.cross"/>
-							<builder buildPath="/giEmptySample/build/Default" id="de.marw.cdt.cmake.core.genscriptbuilder.119709726" keepEnvironmentInBuildfile="false" name="CMake Builder" parallelBuildOn="false" superClass="de.marw.cdt.cmake.core.genscriptbuilder">
+							<builder buildPath="/giEmptySample/build/Default" id="de.marw.cdt.cmake.core.genscriptbuilder.119709726" keepEnvironmentInBuildfile="false" name="CMake Builder" parallelBuildOn="false">
 								<outputEntries>
 									<entry excluding="**/CMakeFiles/**" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name="build"/>
 								</outputEntries>

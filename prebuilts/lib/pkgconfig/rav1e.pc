@@ -1,0 +1,11 @@
+prefix=/clang64
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: rav1e
+Description: The fastest and safest AV1 encoder
+Version: 0.6.6
+Libs: -L${libdir} -lrav1e
+Cflags: -I${includedir}/rav1e
+Libs.private: 

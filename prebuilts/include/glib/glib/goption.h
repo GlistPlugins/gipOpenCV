@@ -2,6 +2,8 @@
  *
  *  Copyright (C) 2004  Anders Carlsson <andersca@gnome.org>
  *
+ * SPDX-License-Identifier: LGPL-2.1-or-later
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -58,7 +60,8 @@ typedef struct _GOptionEntry   GOptionEntry;
  * @G_OPTION_FLAG_IN_MAIN: The option appears in the main section of the
  *     `--help` output, even if it is defined in a group.
  * @G_OPTION_FLAG_REVERSE: For options of the %G_OPTION_ARG_NONE kind, this
- *     flag indicates that the sense of the option is reversed.
+ *     flag indicates that the sense of the option is reversed. i.e. %FALSE will
+ *     be stored into the argument rather than %TRUE.
  * @G_OPTION_FLAG_NO_ARG: For options of the %G_OPTION_ARG_CALLBACK kind,
  *     this flag indicates that the callback does not take any argument
  *     (like a %G_OPTION_ARG_NONE option). Since 2.8
@@ -92,7 +95,7 @@ typedef enum
 
 /**
  * GOptionArg:
- * @G_OPTION_ARG_NONE: No extra argument. This is useful for simple flags.
+ * @G_OPTION_ARG_NONE: No extra argument. This is useful for simple flags or booleans.
  * @G_OPTION_ARG_STRING: The option takes a UTF-8 string argument.
  * @G_OPTION_ARG_INT: The option takes an integer argument.
  * @G_OPTION_ARG_CALLBACK: The option provides a callback (of type
@@ -278,7 +281,7 @@ struct _GOptionEntry
  * or %G_OPTION_ARG_FILENAME_ARRAY.
  * 
  * 
- * Using #G_OPTION_REMAINING instead of simply scanning `argv`
+ * Using %G_OPTION_REMAINING instead of simply scanning `argv`
  * for leftover arguments has the advantage that GOption takes care of 
  * necessary encoding conversions for strings or filenames.
  * 
