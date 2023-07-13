@@ -87,11 +87,11 @@ void gipOpenCV::contourDetection(gImage* image, int thickness, int thresh, int m
 	image->setImageData(mat_copy.data, mat_copy.cols, mat_copy.rows, image->getComponentNum());
 }
 
-std::string gipOpenCV::readTextFromImage(gImage* image, int langNo) {
+std::string gipOpenCV::readTextFromImage(gImage* image) {
     setMatData(image);
     tesseract::TessBaseAPI *ocr = new tesseract::TessBaseAPI();
     ocr->SetVariable("debug_file", "/dev/null");
-    ocr->Init(getTessDataPath(), languages[langNo], tesseract::OEM_LSTM_ONLY);
+    ocr->Init(getTessDataPath(), languages[langno], tesseract::OEM_LSTM_ONLY);
     ocr->SetPageSegMode(tesseract::PSM_AUTO);
     ocr->SetImage(mat.data, mat.cols, mat.rows, 3, mat.step);
     std::string outText = std::string(ocr->GetUTF8Text());
