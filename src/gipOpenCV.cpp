@@ -86,27 +86,17 @@ void gipOpenCV::contourDetection(gImage* image, int thickness, int thresh, int m
 	cv::cvtColor(mat_copy, mat_copy, cv::COLOR_BGR2RGBA);
 	image->setImageData(mat_copy.data, mat_copy.cols, mat_copy.rows, image->getComponentNum());
 }
-std::string gipOpenCV::readTextFromImage(gImage* image) {
-	setMatData(image);
-	tesseract::TessBaseAPI *ocr = new tesseract::TessBaseAPI();
-	ocr->SetVariable("debug_file", "/dev/null");
-	ocr->Init(getTessDataPath(), languages[langno], tesseract::OEM_LSTM_ONLY);
-	ocr->SetPageSegMode(tesseract::PSM_AUTO);
+
+std::string gipOpenCV::readTextFromImage(gImage* image, int langNo) {
+    setMatData(image);
+    tesseract::TessBaseAPI *ocr = new tesseract::TessBaseAPI();
+    ocr->SetVariable("debug_file", "/dev/null");
+    ocr->Init(getTessDataPath(), languages[langNo], tesseract::OEM_LSTM_ONLY);
+    ocr->SetPageSegMode(tesseract::PSM_AUTO);
     ocr->SetImage(mat.data, mat.cols, mat.rows, 3, mat.step);
     std::string outText = std::string(ocr->GetUTF8Text());
     ocr->End();
     return outText;
-
-
-//	TODO: When Tesseract Libary fixed, these comment lines will be removed.
-
-//	tesseract::TessBaseAPI *api = new tesseract::TessBaseAPI();
-//	api->Init(NULL, "eng", tesseract::OEM_LSTM_ONLY);
-//	api->SetPageSegMode(tesseract::PSM_AUTO);
-//	api->SetImage(mat.data, mat.cols, mat.rows, image->getComponentNum(), mat.step);
-//	std::string outext = std::string(api->GetUTF8Text());
-//	api->End();
-
 }
 
 std::vector<cv::Rect> gipOpenCV::carPlateDetection(gImage* image) {
