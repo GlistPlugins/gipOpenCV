@@ -108,6 +108,7 @@ public:
 	void setCam(int cam = 0);
 	void setVideo(std::string videopath);
 	void setDataLanguage(int languageNo);
+
 private:
 	static const int numberoflanguages = 7;
 	cv::Mat mat, originalmat;
