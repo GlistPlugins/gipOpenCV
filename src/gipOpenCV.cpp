@@ -56,7 +56,7 @@ std::vector<cv::Rect> gipOpenCV::objectDetection(gImage* image, std::string xmlF
 }
 
 std::vector<cv::Rect> gipOpenCV::faceDetection(gImage* image) {
-	return objectDetection(image, gGetFilesDir() + "haarcascade_frontalcatface.xml");
+	return objectDetection(image, gGetFilesDir() + "haarcascade_frontalcatface.xml", 1.1f, 3);
 }
 
 void gipOpenCV::objectsDraw(std::vector<cv::Rect> objects,gImage* image, std::string objectName, float fontSize, cv::Scalar color, int thickness) {
@@ -117,7 +117,7 @@ void gipOpenCV::cropMat(std::vector<cv::Rect> objects) {
 	if(!objects.empty() && objects.size() == 1) {
 		cv::Mat croppedmat = originalmat(cv::Range(objects[0].tl().y, objects[0].br().y), cv::Range(objects[0].tl().x, objects[0].br().x));
 //		cv::cvtColor(croppedmat, croppedmat, image->getComponentNum() + 1);
-		cv::imshow("Crop", croppedmat);
+//		cv::imshow("Crop", croppedmat);
 //		cv::cvtColor(croppedmat, croppedmat, image->getComponentNum() + 1);
 //		image->setImageData(croppedmat.data, croppedmat.cols, croppedmat.rows, image->getComponentNum());
 	}
@@ -159,4 +159,23 @@ char* gipOpenCV::getTessDataPath() {
 
 void gipOpenCV::setDataLanguage(int languageNo) {
 	langno = languageNo;
+}
+
+std::string gipOpenCV::readTextFromImage(cv::Mat m) {
+	tesseract::TessBaseAPI *ocr = new tesseract::TessBaseAPI();
+	ocr->SetVariable("debug_file", "/dev/null");
+	ocr->Init(getTessDataPath(), languages[langno], tesseract::OEM_LSTM_ONLY);
+	ocr->SetPageSegMode(tesseract::PSM_AUTO);
+    ocr->SetImage(m.data, m.cols, m.rows, 3, m.step);
+    std::string outText = std::string(ocr->GetUTF8Text());
+    ocr->End();
+    return outText;
+}
+
+cv::Mat gipOpenCV::getMat() {
+	return mat;
+}
+
+cv::Mat gipOpenCV::getOriginalMat() {
+	return originalmat;
 }
