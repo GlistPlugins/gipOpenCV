@@ -13,6 +13,7 @@ set(PREBUILT_DIR ${PLUGIN_DIR}/prebuilts)
 ##### PLUGIN SOURCES #####
 list(APPEND PLUGIN_SRCS
 			${PLUGIN_DIR}/src/gipOpenCV.cpp
+			${PLUGIN_DIR}/src/gipGUICameraStream.cpp
 )
 
 ##### PLUGIN HEADERS #####
@@ -74,6 +75,8 @@ list(APPEND PLUGIN_LINKLIBS
         harfbuzz-gobject
         harfbuzz-icu
         harfbuzz-subset
+        
+
         z
         opencv_calib3d
         opencv_core
