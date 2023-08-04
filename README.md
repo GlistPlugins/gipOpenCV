@@ -9,7 +9,7 @@ Fork & clone this project into ~/dev/glist/glistplugins
 
 - Windows developers should not forget to add
 ```
-${workspace_loc}\..\..\..\..\glistplugins\gipOpenCV\libs\bin
+${workspace_loc}\..\..\..\..\glistplugins\gipOpenCV\prebuilts\bin
 ```
 directory to the GlistApp project's PATH list.
 (Project->Properties->C/C++ Build->Environment->PATH)
