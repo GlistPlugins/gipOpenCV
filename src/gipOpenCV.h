@@ -94,8 +94,6 @@ public:
 	 * @param image an image where detection contour.
 	 *
 	 */
-	char* getTessDataPath();
-
 	void contourDetection(gImage* image, int thickness = 1, int thresh = 150, int maxValue = 255, cv::Scalar color = cv::Scalar(0, 255, 0));
 	std::string readTextFromImage(gImage* image);
 	std::vector<cv::Rect> carPlateDetection(gImage* image);
@@ -108,6 +106,8 @@ public:
 	void setCam(int cam = 0);
 	void setVideo(std::string videopath);
 	void setDataLanguage(int languageNo);
+
+	char* getTessDataPath();
 
 private:
 	static const int numberoflanguages = 7;
