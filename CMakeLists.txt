@@ -17,21 +17,44 @@ list(APPEND PLUGIN_SRCS
 
 ##### PLUGIN HEADERS #####
 list(APPEND PLUGIN_INCLUDES
-			${PLUGIN_DIR}/src
-			${PREBUILT_DIR}/include
-			${PREBUILT_DIR}/include/glib
-			${PREBUILT_DIR}/include/harfbuzz
+		${PLUGIN_DIR}/src
 )
 
 if(WIN32)
 	list(APPEND PLUGIN_INCLUDES
-				${PREBUILT_DIR}/lib/win32/glib/include
+			${PREBUILT_DIR}/include
+			${PREBUILT_DIR}/include/glib
+			${PREBUILT_DIR}/include/harfbuzz
 	)
 elseif(LINUX)
 	list(APPEND PLUGIN_INCLUDES
 		/usr/include/opencv4
 	)
-endif(LINUX)
+elseif(APPLE)
+	find_package(OpenCV REQUIRED)
+	if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+		# Homebrew ships libarchive keg only, include dirs have to be set manually
+		execute_process(
+				COMMAND brew --prefix libarchive
+				OUTPUT_VARIABLE LIBARCHIVE_PREFIX
+				OUTPUT_STRIP_TRAILING_WHITESPACE
+				COMMAND_ERROR_IS_FATAL ANY
+		)
+		set(LibArchive_INCLUDE_DIR "${LIBARCHIVE_PREFIX}/include")
+	endif()
+	find_package(LibArchive REQUIRED)
+	find_package(PkgConfig REQUIRED)
+	pkg_check_modules(glib REQUIRED IMPORTED_TARGET glib-2.0)
+	pkg_check_modules(pango REQUIRED IMPORTED_TARGET pango)
+	pkg_check_modules(tesseract REQUIRED IMPORTED_TARGET tesseract)
+
+	list(APPEND PLUGIN_INCLUDES
+			${OpenCV_INCLUDE_DIRS}
+			${LibArchive_INCLUDE_DIRS}
+			${GLIB_INCLUDE_DIRS}
+			${PANGO_INCLUDE_DIRS}
+	)
+endif(WIN32)
 
 
 ##### PLUGIN DEPENDENCY LOCATIONS (IF ANY) #####
@@ -146,6 +169,10 @@ elseif(LINUX)
 	)
 elseif(APPLE)
 	list(APPEND PLUGIN_LINKLIBS
-				#Lib names
+			${OpenCV_LIBS}
+			${LibArchive_LIBRARIES}
+			PkgConfig::glib
+			PkgConfig::pango
+			PkgConfig::tesseract
 	)
 endif(WIN32)
