@@ -115,8 +115,10 @@ void gipOpenCV::cropMat(std::vector<cv::Rect> objects) {
 
 void gipOpenCV::updateImagefromCam(gImage* image) {
 	cap.read(mat);
-//	cv::cvtColor(mat, mat, image->getComponentNum() + 1);
-	image->setImageData(mat.data, mat.cols, mat.rows, image->getComponentNum());
+	cv::cvtColor(mat, mat, 4);
+//	gLogi("gipOpenCV") < "mat cols:" << mat.cols << ", rows:" << mat.rows << ", comp:" << mat
+	image->setImageData(mat.data, mat.cols, mat.rows, 3);
+	image->useData();
 }
 
 void gipOpenCV::updateImagefromVideo(gImage* image) {
