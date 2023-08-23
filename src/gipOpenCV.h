@@ -14,7 +14,7 @@
 #include "archive.h"
 #include "zconf.h"
 #include "zlib.h"
-#include "glib/glib.h"
+#include "glib.h"
 #include "pango/pango.h"
 #include "cairo/cairo.h"
 #include "tesseract/baseapi.h"
