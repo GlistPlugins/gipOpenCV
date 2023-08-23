@@ -61,12 +61,13 @@ endif(WIN32)
 if(WIN32)
 	list(APPEND PLUGIN_LINKDIRS
 				${PREBUILT_DIR}/lib/win32
-				${PREBUILT_DIR}/bin	
+				${PREBUILT_DIR}/bin
 	)
 	
 	#set(PLUGIN_LIBDIRS ${PREBUILT_DIR}/lib/win32)
 	list(APPEND PLUGIN_LIBDIRS
 				${PREBUILT_DIR}/lib/win32
+				${PREBUILT_DIR}/lib/gstreamer-1.0
 	)
 elseif(LINUX)
 	#Linux libs here
