@@ -27,7 +27,7 @@ void gipOpenCV::makeGray(gImage* image) {
 	setMatData(image);
 	cv::cvtColor(mat, mat, cv::COLOR_BGR2GRAY);
 	cv::cvtColor(mat, mat, image->getComponentNum() + 5);
-	gLogi("gipOpenCV") << gToStr(image->getComponentNum() + 1);
+//	gLogi("gipOpenCV") << gToStr(image->getComponentNum() + 1);
 	image->setImageData(mat.data, mat.cols, mat.rows, image->getComponentNum());
 }
 
@@ -70,7 +70,7 @@ void gipOpenCV::objectsDraw(std::vector<cv::Rect> objects,gImage* image, std::st
 		return;
 	}
 	cv::cvtColor(mat, mat, image->getComponentNum() + 1);
-	gLogi("gipOpenCV") << "List is Empty";
+//	gLogi("gipOpenCV") << "List is Empty";
 }
 
 void gipOpenCV::contourDetection(gImage* image, int thickness, int thresh, int maxValue, cv::Scalar color) {
@@ -88,6 +88,7 @@ void gipOpenCV::contourDetection(gImage* image, int thickness, int thresh, int m
 }
 
 std::string gipOpenCV::readTextFromImage(gImage* image) {
+/*
     setMatData(image);
     tesseract::TessBaseAPI *ocr = new tesseract::TessBaseAPI();
     ocr->SetVariable("debug_file", "/dev/null");
@@ -97,6 +98,8 @@ std::string gipOpenCV::readTextFromImage(gImage* image) {
     std::string outText = std::string(ocr->GetUTF8Text());
     ocr->End();
     return outText;
+*/
+	return "";
 }
 
 std::vector<cv::Rect> gipOpenCV::carPlateDetection(gImage* image) {
@@ -123,10 +126,10 @@ void gipOpenCV::updateImagefromCam(gImage* image) {
 
 void gipOpenCV::updateImagefromVideo(gImage* image) {
 	cap.read(mat);
-	gLogi("gipOpenCV") << gToStr(mat.data).size();
-//	cv::cvtColor(mat, mat, 4);
+//	gLogi("gipOpenCV") << gToStr(mat.data).size();
+	cv::cvtColor(mat, mat, 4);
 //	image->clearData();
-	image->setImageData(mat.data, mat.cols, mat.rows, image->getComponentNum());
+	image->setImageData(mat.data, mat.cols, mat.rows, 3);
 	image->useData();
 }
 
