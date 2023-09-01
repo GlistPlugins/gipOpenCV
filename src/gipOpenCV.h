@@ -96,6 +96,7 @@ public:
 	 */
 	void contourDetection(gImage* image, int thickness = 1, int thresh = 150, int maxValue = 255, cv::Scalar color = cv::Scalar(0, 255, 0));
 	std::string readTextFromImage(gImage* image);
+	std::string readTextFromImage(cv::Mat m);
 	std::vector<cv::Rect> carPlateDetection(gImage* image);
 	void cropMat(std::vector<cv::Rect> objects);
 
@@ -103,6 +104,9 @@ public:
 	void updateImagefromVideo(gImage* image);
 
 	void setMatData(gImage* image);
+	cv::Mat getMat();
+	cv::Mat getOriginalMat();
+
 	void setCam(int cam = 0);
 	void setVideo(std::string videopath);
 	void setDataLanguage(int languageNo);

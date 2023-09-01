@@ -88,7 +88,6 @@ void gipOpenCV::contourDetection(gImage* image, int thickness, int thresh, int m
 }
 
 std::string gipOpenCV::readTextFromImage(gImage* image) {
-/*
     setMatData(image);
     tesseract::TessBaseAPI *ocr = new tesseract::TessBaseAPI();
     ocr->SetVariable("debug_file", "/dev/null");
@@ -98,8 +97,6 @@ std::string gipOpenCV::readTextFromImage(gImage* image) {
     std::string outText = std::string(ocr->GetUTF8Text());
     ocr->End();
     return outText;
-*/
-	return "";
 }
 
 std::vector<cv::Rect> gipOpenCV::carPlateDetection(gImage* image) {
@@ -154,4 +151,23 @@ char* gipOpenCV::getTessDataPath() {
 
 void gipOpenCV::setDataLanguage(int languageNo) {
 	langno = languageNo;
+}
+
+std::string gipOpenCV::readTextFromImage(cv::Mat m) {
+	tesseract::TessBaseAPI *ocr = new tesseract::TessBaseAPI();
+	ocr->SetVariable("debug_file", "/dev/null");
+	ocr->Init(getTessDataPath(), languages[langno], tesseract::OEM_LSTM_ONLY);
+	ocr->SetPageSegMode(tesseract::PSM_AUTO);
+    ocr->SetImage(m.data, m.cols, m.rows, 3, m.step);
+    std::string outText = std::string(ocr->GetUTF8Text());
+    ocr->End();
+    return outText;
+}
+
+cv::Mat gipOpenCV::getMat() {
+	return mat;
+}
+
+cv::Mat gipOpenCV::getOriginalMat() {
+	return originalmat;
 }
