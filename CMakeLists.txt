@@ -13,6 +13,7 @@ set(PREBUILT_DIR ${PLUGIN_DIR}/prebuilts)
 ##### PLUGIN SOURCES #####
 list(APPEND PLUGIN_SRCS
 			${PLUGIN_DIR}/src/gipOpenCV.cpp
+			${PLUGIN_DIR}/src/gGuiOpenCVCamera.cpp
 )
 
 ##### PLUGIN HEADERS #####
