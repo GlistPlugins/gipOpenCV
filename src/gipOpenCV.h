@@ -65,7 +65,7 @@ public:
      *
      * @return std::vector<cv::Rect> location of objects.
 	 */
-	std::vector<cv::Rect> objectDetection(gImage* image, std::string xmlFilePath, float scaleFactor = 1.1f, int minNeighbors = 3);
+	std::vector<cv::Rect> objectDetection(gImage* image, std::string xmlFilePath, bool isVideo = false, float scaleFactor = 1.1f, int minNeighbors = 3);
 
 	/**
 	 * Finds the locations of faces from image.
