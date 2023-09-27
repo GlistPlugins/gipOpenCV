@@ -41,8 +41,8 @@ void gipOpenCV::makeCanny(gImage* image, float threshold1, float threshold2) {
 	image->setImageData(mat.data, mat.cols, mat.rows, image->getComponentNum());
 }
 
-std::vector<cv::Rect> gipOpenCV::objectDetection(gImage* image, std::string xmlFilePath, float scaleFactor, int minNeighbors) {
-	setMatData(image);
+std::vector<cv::Rect> gipOpenCV::objectDetection(gImage* image, std::string xmlFilePath, bool isVideo, float scaleFactor, int minNeighbors) {
+	if(!isVideo) setMatData(image);
 	cv::CascadeClassifier cascade;
 	cascade.load(xmlFilePath);
 
@@ -132,7 +132,7 @@ void gipOpenCV::updateImagefromVideo(gImage* image) {
 
 void gipOpenCV::setMatData(gImage* image) {
 	mat = cv::Mat(image->getHeight(), image->getWidth(), CV_8UC(image->getComponentNum()), image->getImageData());
-	cv::cvtColor(mat, mat, image->getComponentNum() + 1);
+	cv::cvtColor(mat, mat, image->getComponentNum());
 	originalmat = mat.clone();
 }
 
