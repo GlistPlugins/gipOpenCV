@@ -15,15 +15,15 @@ class gGuiOpenCVCamera: public gGUIControl {
 public:
 	gGuiOpenCVCamera();
 	virtual ~gGuiOpenCVCamera();
-	void rectDraw();
-	int getWidth();
-	int getHeight();
+
+	gImage* getImage();
+
+	void update();
 	void draw();
 
 private:
 	gipOpenCV cv;
-	gImage cameraImage;
-	cv::VideoCapture cap;
+	gImage cameraimage;
 };
 
 #endif /* GGUIOPENCVCAMERA_H_ */
