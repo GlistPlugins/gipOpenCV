@@ -137,7 +137,14 @@ void gipOpenCV::setMatData(gImage* image) {
 }
 
 void gipOpenCV::setCam(int cam) {
-	cap = cv::VideoCapture(cam);
+#ifdef _WIN32
+	cap.open(cam, cv::CAP_DSHOW);
+	if (!cap.isOpened()) {
+		cap.open(cam, cv::CAP_ANY);
+	}
+#else
+	cap.open(cam);
+#endif
 }
 
 void gipOpenCV::setVideo(std::string videopath) {
@@ -154,14 +161,32 @@ void gipOpenCV::setDataLanguage(int languageNo) {
 }
 
 std::string gipOpenCV::readTextFromImage(cv::Mat m) {
+	if (m.empty()) return "";
 	tesseract::TessBaseAPI *ocr = new tesseract::TessBaseAPI();
-	ocr->SetVariable("debug_file", "/dev/null");
-	ocr->Init(getTessDataPath(), languages[langno], tesseract::OEM_LSTM_ONLY);
+	ocr->SetVariable("debug_file", "NUL");
+	
+	std::string tpath = getTessDataPath();
+	int res = ocr->Init(tpath.c_str(), languages[langno], tesseract::OEM_LSTM_ONLY);
+	if (res != 0) {
+		// Fallback paths
+		std::string fallback1 = gGetFilesDir() + "tessdata";
+		std::string fallback2 = "assets/files/tessdata";
+		if (ocr->Init(fallback1.c_str(), languages[langno], tesseract::OEM_LSTM_ONLY) != 0) {
+			if (ocr->Init(fallback2.c_str(), languages[langno], tesseract::OEM_LSTM_ONLY) != 0) {
+				delete ocr;
+				return "";
+			}
+		}
+	}
+	
 	ocr->SetPageSegMode(tesseract::PSM_AUTO);
-    ocr->SetImage(m.data, m.cols, m.rows, 3, m.step);
-    std::string outText = std::string(ocr->GetUTF8Text());
-    ocr->End();
-    return outText;
+	ocr->SetImage(m.data, m.cols, m.rows, m.channels(), m.step);
+	char* utf8Text = ocr->GetUTF8Text();
+	std::string outText = utf8Text ? std::string(utf8Text) : "";
+	if (utf8Text) delete[] utf8Text;
+	ocr->End();
+	delete ocr;
+	return outText;
 }
 
 cv::Mat gipOpenCV::getMat() {
