@@ -134,6 +134,11 @@ if(WIN32)
 				${PREBUILT_DIR}/lib/win32
 				${PREBUILT_DIR}/lib/gstreamer-1.0
 	)
+elseif(ANDROID)
+	# Android OpenCV SDK includes and libraries (${ANDROID_ABI})
+	if(EXISTS "${PLUGIN_DIR}/libs/opencv/android/${ANDROID_ABI}")
+		list(APPEND PLUGIN_LINKDIRS "${PLUGIN_DIR}/libs/opencv/android/${ANDROID_ABI}")
+	endif()
 elseif(LINUX)
 	#Linux libs here
 	list(APPEND PLUGIN_LINKDIRS
@@ -319,6 +324,10 @@ elseif(LINUX)
         opencv_ximgproc
         opencv_xobjdetect
         opencv_xphoto
+	)
+elseif(ANDROID)
+	list(APPEND PLUGIN_LINKLIBS
+		# Android OpenCV native libraries (e.g. opencv_java4, opencv_core)
 	)
 elseif(APPLE)
 	#Macos libs here
