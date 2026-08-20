@@ -64,6 +64,66 @@ endif(WIN32)
 
 ##### PLUGIN DEPENDENCY LOCATIONS (IF ANY) #####
 if(WIN32)
+	# 1. Copy only required runtime DLLs from zbin (excluding heavy compiler tools like LLVM/Clang)
+	get_filename_component(TOOLCHAIN_BIN_DIR "${CMAKE_CXX_COMPILER}" DIRECTORY)
+	if(EXISTS "${TOOLCHAIN_BIN_DIR}")
+		set(REQUIRED_RUNTIME_DLLS
+			libc++.dll
+			libunwind.dll
+			libwinpthread-1.dll
+			zlib1.dll
+			libpng16-16.dll
+			libfreetype-6.dll
+			libbrotlidec.dll
+			libbrotlienc.dll
+			libbrotlicommon.dll
+			libbz2-1.dll
+			libcrypto-3-x64.dll
+			libcurl-4.dll
+			libexpat-1.dll
+			libgio-2.0-0.dll
+			libglib-2.0-0.dll
+			libgmodule-2.0-0.dll
+			libgobject-2.0-0.dll
+			libgthread-2.0-0.dll
+			libharfbuzz-0.dll
+			libharfbuzz-gobject-0.dll
+			libharfbuzz-icu-0.dll
+			libharfbuzz-subset-0.dll
+			libiconv-2.dll
+			libidn2-0.dll
+			liblzma-5.dll
+			libomp.dll
+			libp11-kit-0.dll
+			libpcre2-16-0.dll
+			libpcre2-8-0.dll
+			libtasn1-6.dll
+			libzstd.dll
+			libopenblas.dll
+			libtiff-6.dll
+			libjpeg-8.dll
+			libwebp-7.dll
+			libsharpyuv-0.dll
+			libvulkan-1.dll
+			libxml2-16.dll
+		)
+		foreach(dll_name ${REQUIRED_RUNTIME_DLLS})
+			if(EXISTS "${TOOLCHAIN_BIN_DIR}/${dll_name}")
+				file(COPY "${TOOLCHAIN_BIN_DIR}/${dll_name}" DESTINATION ${CMAKE_BINARY_DIR})
+			endif()
+		endforeach()
+	endif()
+
+	# 2. Copy plugin-specific prebuilt DLLs (overriding any incompatible stock ones)
+	file(GLOB OPENCV_DLLS "${PREBUILT_DIR}/bin/*.dll")
+	file(COPY ${OPENCV_DLLS} DESTINATION ${CMAKE_BINARY_DIR})
+	if(EXISTS "${PREBUILT_DIR}/lib/gstreamer-1.0")
+		file(COPY "${PREBUILT_DIR}/lib/gstreamer-1.0" DESTINATION "${CMAKE_BINARY_DIR}/lib")
+	endif()
+	if(EXISTS "${PREBUILT_DIR}/share/tessdata")
+		file(COPY "${PREBUILT_DIR}/share/tessdata" DESTINATION "${CMAKE_BINARY_DIR}/assets/files")
+	endif()
+
 	list(APPEND PLUGIN_LINKDIRS
 				${PREBUILT_DIR}/lib/win32
 				${PREBUILT_DIR}/bin
@@ -116,7 +176,7 @@ list(APPEND PLUGIN_LINKLIBS
         harfbuzz
         harfbuzz-gobject
         harfbuzz-icu
-        harfbuzz-subset
+#        harfbuzz-subset
         z
         opencv_calib3d
         opencv_core
@@ -137,7 +197,7 @@ list(APPEND PLUGIN_LINKLIBS
         opencv_aruco
         opencv_bgsegm
         opencv_ccalib
-        opencv_cvv
+#        opencv_cvv
         opencv_datasets
         opencv_dnn_objdetect
         opencv_dnn_superres
@@ -145,14 +205,14 @@ list(APPEND PLUGIN_LINKLIBS
         opencv_face
         opencv_freetype
         opencv_fuzzy
-        opencv_hdf
+#        opencv_hdf
         opencv_hfs
         opencv_img_hash
         opencv_intensity_transform
         opencv_line_descriptor
         opencv_mcc
         opencv_optflow
-        opencv_ovis
+#        opencv_ovis
         opencv_phase_unwrapping
         opencv_plot
         opencv_quality
@@ -160,7 +220,7 @@ list(APPEND PLUGIN_LINKLIBS
         opencv_reg
         opencv_rgbd
         opencv_saliency
-        opencv_sfm
+#        opencv_sfm
         opencv_shape
         opencv_stereo
         opencv_structured_light
@@ -169,7 +229,7 @@ list(APPEND PLUGIN_LINKLIBS
         opencv_text
         opencv_tracking
         opencv_videostab
-        opencv_viz
+#        opencv_viz
         opencv_wechat_qrcode
         opencv_xfeatures2d
         opencv_ximgproc
@@ -261,6 +321,7 @@ elseif(LINUX)
         opencv_xphoto
 	)
 elseif(APPLE)
+	#Macos libs here
 	list(APPEND PLUGIN_LINKLIBS
 			${OpenCV_LIBS}
 			${LibArchive_LIBRARIES}
