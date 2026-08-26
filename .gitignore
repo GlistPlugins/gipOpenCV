@@ -1,0 +1,10 @@
+.settings
+build
+/Release/
+
+# Auto-extracted Android OpenCV static libraries (tracked as .a.zip)
+prebuilts/lib/android/**/libopencv_core.a
+prebuilts/lib/android/**/libopencv_dnn.a
+prebuilts/lib/android/**/libopencv_imgproc.a
+prebuilts/lib/android/x86_64/libopencv_dnn.a
+prebuilts/lib/android/arm64-v8a/libopencv_dnn.a
