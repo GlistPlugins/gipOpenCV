@@ -175,12 +175,9 @@ std::vector<cv::Rect> gipOpenCV::carPlateDetection(gImage* image) {
 }
 
 void gipOpenCV::cropMat(std::vector<cv::Rect> objects) {
-#if !defined(ANDROID) && !defined(__ANDROID__)
 	if(!objects.empty() && objects.size() == 1) {
-		cv::Mat croppedmat = originalmat(cv::Range(objects[0].tl().y, objects[0].br().y), cv::Range(objects[0].tl().x, objects[0].br().x));
-		cv::imshow("Crop", croppedmat);
+		mat = originalmat(cv::Range(objects[0].tl().y, objects[0].br().y), cv::Range(objects[0].tl().x, objects[0].br().x)).clone();
 	}
-#endif
 }
 
 void gipOpenCV::updateImagefromCam(gImage* image) {

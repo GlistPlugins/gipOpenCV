@@ -20,6 +20,16 @@
 #include "tesseract/baseapi.h"
 #include "leptonica/allheaders.h"
 #include "opencv2/opencv.hpp"
+#include "opencv2/core.hpp"
+#include "opencv2/imgproc.hpp"
+#if __has_include("opencv2/geometry.hpp")
+#include "opencv2/geometry.hpp"
+#endif
+#include "opencv2/objdetect.hpp"
+#if __has_include("opencv2/xobjdetect.hpp")
+#include "opencv2/xobjdetect.hpp"
+#endif
+#include "opencv2/videoio.hpp"
 
 /**
  * Enables the processing of uploaded image or video.
